@@ -4,7 +4,7 @@
 import http.client
 import json
 from urllib.parse import quote
-from report import generate_report
+from report import generate_report, upload_to_s3
 from email_sender import send_email
 
 # load config
@@ -71,10 +71,13 @@ def main():
     results = search_zillow()
 
     # generate report
-    report = generate_report(results)
+    report, new_properties_df = generate_report(results)
+
+    # upload to s3
+    upload_to_s3(report)
 
     # send email
-    send_email(report, config['email_list'])
+    send_email(report, new_properties_df, config['email_list'])
     
 if __name__ == "__main__":
     main()

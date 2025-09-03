@@ -1,0 +1,33 @@
+{
+  "api": {
+    "host": "zillow-com1.p.rapidapi.com",
+    "key": "${RAPIDAPI_KEY}",
+    "endpoint_path": "/propertyExtendedSearch"
+  },
+  "email_list": [
+    "${RECEPIENT_EMAIL_1}",
+    "${RECEPIENT_EMAIL_2}",
+    "${RECEPIENT_EMAIL_3}",
+    "${RECEPIENT_EMAIL_4}"
+  ],
+  "aws_config": {
+    "bucket_name": "zillow-bot",
+    "region": "us-east-1",
+    "access_key": "${AWS_ACCESS_KEY}",
+    "secret_key": "${AWS_SECRET_KEY}"
+  },
+  "email_config": {
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "sender_email": "${SENDER_EMAIL}",
+    "sender_password": "${EMAIL_PASSWORD}"
+  },
+  "search_params": {
+    "locations": "${LOCATIONS}",
+    "status_type": "ForSale",
+    "home_type": "Houses",
+    "sort": "ForSale",
+    "max_price": "${MAX_PRICE}",
+    "days_on": "${DAYS_ON}"
+  }
+}

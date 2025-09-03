@@ -1,0 +1,47 @@
+name: Zillow Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 11 * * 6'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Generate config.json
+      run: |
+        envsubst < config.template.json > config.json
+      env:
+        RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        RECEPIENT_EMAIL_1: ${{ secrets.RECEPIENT_EMAIL_1 }}
+        RECEPIENT_EMAIL_2: ${{ secrets.RECEPIENT_EMAIL_2 }}
+        RECEPIENT_EMAIL_3: ${{ secrets.RECEPIENT_EMAIL_3 }}
+        RECEPIENT_EMAIL_4: ${{ secrets.RECEPIENT_EMAIL_4 }}
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        LOCATIONS: ${{ secrets.LOCATIONS }}
+        MAX_PRICE: ${{ secrets.MAX_PRICE }}
+        DAYS_ON: ${{ secrets.DAYS_ON }}
+    
+    - name: Run Zillow Bot
+      run: python3 src/bot.py
+      env:
+        PYTHONPATH: ${{ github.workspace }}

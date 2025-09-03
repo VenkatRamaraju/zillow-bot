@@ -10,7 +10,7 @@ python src/bot.py
 ```
 
 ## Sample Config (`config.json`)
-
+If you want to run locally, create this file. The template is for workflow runs. 
 ```json
 {
   "api": {
@@ -22,16 +22,23 @@ python src/bot.py
     "buyer1@email.com",
     "buyer2@email.com"
   ],
+  "aws_config": {
+    "bucket_name": "your-s3-bucket-name",
+    "region": "us-west-2",
+    "access_key": "YOUR_AWS_ACCESS_KEY",
+    "secret_key": "your-aws-secret-access-key"
+  },
   "email_config": {
     "smtp_server": "smtp.gmail.com",
     "smtp_port": 587,
     "sender_email": "bot@email.com",
-    "sender_password": "your-app-password"
+    "sender_password": "your-gmail-app-password"
   },
   "search_params": {
-    "locations": "San Mateo, CA; Redwood City, CA; Sunnyvale, CA",
+    "locations": "San Mateo, CA; Redwood City, CA; Sunnyvale, CA; Mountain View, CA; Palo Alto, CA",
     "status_type": "ForSale",
     "home_type": "Houses",
+    "sort": "ForSale",
     "max_price": "2000000",
     "days_on": "90"
   }
